@@ -1,7 +1,7 @@
 /**
  * Created by yan on 16-1-19.
  */
-import Control from '../lib/Control.jsx';
+import Control from '../lib/Control.js';
 import {connect} from 'react-redux';
 import {ACTION_SET} from './constants';
 
