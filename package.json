@@ -1,6 +1,6 @@
 {
   "name": "react-timeline-control",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A timeline control for React",
   "main": "index.js",
   "directories": {
@@ -9,7 +9,7 @@
   "scripts": {
     "start": "webpack-dev-server"
   },
-  "author": "",
+  "author": "wyvernnot",
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.3.26",

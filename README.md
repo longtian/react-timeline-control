@@ -1,3 +1,3 @@
 # react-timeline-control
 
-A timeline control for React
+控制时间轴的小控件
