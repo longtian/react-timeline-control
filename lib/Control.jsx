@@ -37,12 +37,13 @@ class Control extends Component {
     let to_ts = now();
     let from_ts = now() - duration;
     this.setState({
-      to_ts: now(),
-      from_ts: now() - duration
+      to_ts,
+      from_ts
     });
   }
 
   handlePlayClick() {
+    clearInterval(this._timer);
     this.setState({
       playing: true,
       duration: this.state.duration == -1 ? this.props.default_duration : this.state.duration
@@ -51,15 +52,14 @@ class Control extends Component {
   }
 
   handlePauseClick() {
+    clearInterval(this._timer);
     this.setState({
       playing: false
     });
-    clearInterval(this._timer);
   }
 
   handleDurationChange(e) {
     clearInterval(this._timer);
-
     let duration = parseInt(e.target.value);
     if (duration < 0) {
       this.setState({
@@ -72,9 +72,9 @@ class Control extends Component {
       let from_ts = now() - duration;
       this.setState({
         duration,
+        from_ts,
+        to_ts,
         playing: true,
-        to_ts: now(),
-        from_ts: now() - duration,
         message: null
       });
       this._timer = setInterval(this.tick.bind(this), this.props.interval)
@@ -150,10 +150,10 @@ class Control extends Component {
             />
           </label>
         </span>
-        <button className="btn btn-primary" disabled={this.state.playing} onClick={this.handlePlayClick.bind(this)}>
+        <button className="btn btn-primary btn-sm" disabled={this.state.playing} onClick={this.handlePlayClick.bind(this)}>
           <i className="glyphicon glyphicon-play"></i>
         </button>
-        <button className="btn btn-primary" disabled={!this.state.playing} onClick={this.handlePauseClick.bind(this)}>
+        <button className="btn btn-primary btn-sm" disabled={!this.state.playing} onClick={this.handlePauseClick.bind(this)}>
           <i className="glyphicon glyphicon-pause"></i>
         </button>
         <span style={{color:'red'}}>{this.state.message}</span>
