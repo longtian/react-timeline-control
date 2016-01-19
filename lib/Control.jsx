@@ -56,11 +56,14 @@ class Control extends Component {
   }
 
   handleDurationChange(e) {
+    clearInterval(this._timer);
     let duration = parseInt(e.target.value);
     this.setState({
       duration,
-      playing: duration != -1
-    })
+      playing: duration != -1,
+      message: null
+    });
+    this.check();
   }
 
   handleTimeChange(field, e) {
@@ -139,7 +142,7 @@ class Control extends Component {
 }
 
 Control.defaultProps = {
-  interval: 1000,
+  interval: 10000,
   default_duration: 3600000
 }
 

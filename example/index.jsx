@@ -3,32 +3,13 @@
  */
 
 import React from 'react';
-import Control from '../redux/Control.jsx';
 import {render} from 'react-dom';
-
 import {createStore} from 'redux';
 import {Provider,connect} from 'react-redux';
 
-const reducer = (state = {
-  from_ts: Date.now() - 360000,
-  to_ts: Date.now()
-}, action)=> {
-  switch (action.type) {
-    case "SET_FROM_TS":
-      return Object.assign({}, state, {
-        from_ts: action.ts
-      });
-    case "SET_TO_TS":
-      return Object.assign({}, state, {
-        to_ts: action.ts
-      });
-    default:
-      return state;
-  }
-}
+import ControlContainer from '../redux/ControlContainer.jsx';
+import reducer from '../redux/reducer.jsx';
 
-let elem = document.createElement('div');
-let store = createStore(reducer);
 
 let APP = (props)=> {
   return <pre>props:{JSON.stringify(props, null, 2)}</pre>
@@ -39,13 +20,15 @@ APP = connect(state=>({
   to_ts: state.to_ts,
 }))(APP)
 
+let store = createStore(reducer);
+
+let elem = document.createElement('div');
 render(<Provider store={store}>
   <div>
-    <Control/>
+    <ControlContainer/>
     <APP/>
   </div>
 </Provider>, elem);
-
 document.body.appendChild(elem);
 
 
