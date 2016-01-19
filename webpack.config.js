@@ -12,5 +12,8 @@ module.exports = {
       test: /.jsx/,
       loader: 'babel'
     }]
+  },
+  devServer:{
+    port:8081
   }
 }

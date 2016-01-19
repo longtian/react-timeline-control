@@ -1,12 +1,15 @@
 /**
  * Created by yan on 16-1-19.
  */
+
+import {ACTION_SET} from './constants';
+
 const reducer = (state = {
-  from_ts: Date.now() - 360000,
+  from_ts: Date.now() - 3600000,
   to_ts: Date.now()
 }, action)=> {
   switch (action.type) {
-    case "SET_TS":
+    case ACTION_SET:
       if (action.from_ts && action.to_ts) {
         return Object.assign({}, state, {
           from_ts: action.from_ts,

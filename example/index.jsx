@@ -10,9 +10,13 @@ import {Provider,connect} from 'react-redux';
 import ControlContainer from '../redux/ControlContainer.jsx';
 import reducer from '../redux/reducer.jsx';
 
+import moment from 'moment';
 
 let APP = (props)=> {
-  return <pre>props:{JSON.stringify(props, null, 2)}</pre>
+  return <div>
+    <h5>{moment(props.from_ts).format('YYYY/MM/DD HH:mm:ss')}</h5>
+    <h5>{moment(props.to_ts).format('YYYY/MM/DD HH:mm:ss')}</h5>
+  </div>
 }
 
 APP = connect(state=>({

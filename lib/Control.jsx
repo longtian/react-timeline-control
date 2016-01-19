@@ -7,6 +7,9 @@ import moment from 'moment';
 
 const now = Date.now;
 
+/**
+ * 时间选择器
+ */
 class Control extends Component {
 
   constructor(props, ...args) {
@@ -22,7 +25,7 @@ class Control extends Component {
   }
 
   componentDidMount() {
-    this.check();
+    this._timer = setInterval(this.tick.bind(this), this.state.interval)
   }
 
   tick() {
@@ -33,13 +36,6 @@ class Control extends Component {
       to_ts: now(),
       from_ts: now() - duration
     });
-  }
-
-  check() {
-    if (this.state.playing && this.state.duration > 0) {
-      this.tick();
-    }
-    this._timer = setTimeout(this.check.bind(this), this.state.interval)
   }
 
   handlePlayClick() {
@@ -57,13 +53,27 @@ class Control extends Component {
 
   handleDurationChange(e) {
     clearInterval(this._timer);
+
     let duration = parseInt(e.target.value);
-    this.setState({
-      duration,
-      playing: duration != -1,
-      message: null
-    });
-    this.check();
+    if (duration < 0) {
+      this.setState({
+        duration,
+        playing: false,
+        message: null
+      });
+    } else {
+      let to_ts = now();
+      let from_ts = now() - duration;
+      this.setState({
+        duration,
+        playing: true,
+        to_ts: now(),
+        from_ts: now() - duration,
+        message: null
+      });
+    }
+
+    this._timer = setInterval(this.tick.bind(this), this.props.interval)
   }
 
   handleTimeChange(field, e) {
@@ -116,7 +126,8 @@ class Control extends Component {
           <option value="-1">自定义</option>
         </select>
         <span style={{display:this.state.duration==-1?'inline':'none'}}>
-          <label>开始时间:
+          <label>
+            开始时间:
             <input readOnly={this.state.duration!=-1}
                    type="datetime-local"
                    value={moment(this.state.from_ts).format('YYYY-MM-DDTHH:mm:ss')}
@@ -124,7 +135,7 @@ class Control extends Component {
             />
           </label>
           <label>
-            结束时间
+            结束时间:
             <input readOnly={this.state.duration!=-1}
                    type="datetime-local"
                    value={moment(this.state.to_ts).format('YYYY-MM-DDTHH:mm:ss')}
@@ -142,7 +153,7 @@ class Control extends Component {
 }
 
 Control.defaultProps = {
-  interval: 10000,
+  interval: 5000,
   default_duration: 3600000
 }
 
