@@ -44,7 +44,11 @@ class Control extends Component {
 
   handlePlayClick() {
     clearInterval(this._timer);
+    let to_ts = now();
+    let from_ts = now() - duration;
     this.setState({
+      from_ts,
+      to_ts,
       playing: true,
       duration: this.state.duration == -1 ? this.props.default_duration : this.state.duration
     });
