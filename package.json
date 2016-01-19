@@ -1,6 +1,6 @@
 {
   "name": "react-timeline-control",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A timeline control for React",
   "main": "index.js",
   "directories": {
