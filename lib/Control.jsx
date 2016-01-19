@@ -43,12 +43,14 @@ class Control extends Component {
       playing: true,
       duration: this.state.duration == -1 ? this.props.default_duration : this.state.duration
     });
+    this._timer = setInterval(this.tick.bind(this), this.props.interval)
   }
 
   handlePauseClick() {
     this.setState({
       playing: false
-    })
+    });
+    clearInterval(this._timer);
   }
 
   handleDurationChange(e) {
@@ -116,8 +118,8 @@ class Control extends Component {
 
   render() {
     return <div>
-      <form>
-        <select onChange={this.handleDurationChange.bind(this)} value={this.state.duration}>
+      <form className="form-inline">
+        <select className="form-control" onChange={this.handleDurationChange.bind(this)} value={this.state.duration}>
           <option value="3600000">最近1小时</option>
           <option value="10800000">最近3小时</option>
           <option value="21600000">最近6小时</option>
@@ -128,7 +130,8 @@ class Control extends Component {
         <span style={{display:this.state.duration==-1?'inline':'none'}}>
           <label>
             开始时间:
-            <input readOnly={this.state.duration!=-1}
+            <input className="form-control"
+                   readOnly={this.state.duration!=-1}
                    type="datetime-local"
                    value={moment(this.state.from_ts).format('YYYY-MM-DDTHH:mm:ss')}
                    onChange={this.handleTimeChange.bind(this,'from_ts')}
@@ -136,15 +139,20 @@ class Control extends Component {
           </label>
           <label>
             结束时间:
-            <input readOnly={this.state.duration!=-1}
+            <input className="form-control"
+                   readOnly={this.state.duration!=-1}
                    type="datetime-local"
                    value={moment(this.state.to_ts).format('YYYY-MM-DDTHH:mm:ss')}
                    onChange={this.handleTimeChange.bind(this,'to_ts')}
             />
           </label>
         </span>
-        <button disabled={this.state.playing} onClick={this.handlePlayClick.bind(this)}>Play</button>
-        <button disabled={!this.state.playing} onClick={this.handlePauseClick.bind(this)}>Pause</button>
+        <button className="btn btn-primary" disabled={this.state.playing} onClick={this.handlePlayClick.bind(this)}>
+          <i className="glyphicon glyphicon-play"></i>
+        </button>
+        <button className="btn btn-primary" disabled={!this.state.playing} onClick={this.handlePauseClick.bind(this)}>
+          <i className="glyphicon glyphicon-pause"></i>
+        </button>
         <span style={{color:'red'}}>{this.state.message}</span>
       </form>
       <pre>{JSON.stringify(this.state, null, 2)}</pre>

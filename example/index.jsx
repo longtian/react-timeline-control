@@ -29,6 +29,7 @@ let store = createStore(reducer);
 let elem = document.createElement('div');
 render(<Provider store={store}>
   <div>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>
     <ControlContainer/>
     <APP/>
   </div>
