@@ -13,8 +13,14 @@ npm install react-timeline-control
 
 ## 样式
 
-基于 Bootstrap
+依赖于 Bootstrap
 
 ## 和其它框架集成
 
 ### Redux
+
+### 兼容性
+
+需要浏览器支持 'datetime-local' input 类型
+
+[input-datetime](http://caniuse.com/#feat=input-datetime)

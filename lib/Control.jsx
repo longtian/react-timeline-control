@@ -73,9 +73,8 @@ class Control extends Component {
         from_ts: now() - duration,
         message: null
       });
+      this._timer = setInterval(this.tick.bind(this), this.props.interval)
     }
-
-    this._timer = setInterval(this.tick.bind(this), this.props.interval)
   }
 
   handleTimeChange(field, e) {
@@ -155,7 +154,6 @@ class Control extends Component {
         </button>
         <span style={{color:'red'}}>{this.state.message}</span>
       </form>
-      <pre>{JSON.stringify(this.state, null, 2)}</pre>
     </div>
   }
 }
