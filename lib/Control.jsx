@@ -25,7 +25,11 @@ class Control extends Component {
   }
 
   componentDidMount() {
-    this._timer = setInterval(this.tick.bind(this), this.state.interval)
+    this._timer = setInterval(this.tick.bind(this), this.state.interval);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._timer);
   }
 
   tick() {
